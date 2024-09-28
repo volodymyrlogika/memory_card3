@@ -29,6 +29,8 @@ btn2 = QRadioButton("щур")
 btn3 = QRadioButton("мішок")
 btn4 = QRadioButton("мус")
 
+
+
 radio_group = QButtonGroup()
 radio_group.addButton(btn1)
 radio_group.addButton(btn2)
