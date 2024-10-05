@@ -1,5 +1,5 @@
 from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QLabel, QVBoxLayout, QLineEdit, QHBoxLayout
+from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QLabel, QVBoxLayout, QLineEdit, QHBoxLayout, QMessageBox
 
 from random import shuffle, choice
 
@@ -8,6 +8,8 @@ app = QApplication([])
 from window import *
 
 class Question:
+    correct_counter = 0  # лічильник правильних відповідей
+    total_counter = 0 # лічильник усіх відповідей
 
     def __init__(self, text, right_answer, ans1, ans2, ans3):
         self.text = text
@@ -24,15 +26,22 @@ class Question:
         answer_text.setText(self.right_answer)
     
     def check_answer(self):
+        radio_group.setExclusive(False)
+        #збільшуємо лічильник запитань
+        Question.total_counter+=1
+
         for answer in [btn1, btn2, btn3, btn4]:
             if answer.isChecked():
+                answer.setChecked(False)
                 if answer.text() == self.right_answer:
                     result_text.setText("Правильно!")
+                    Question.correct_counter+=1 #
                     break
                 else:
                     result_text.setText("Неправильно!")
                     break
             
+        radio_group.setExclusive(True)
         
 questions = [
     Question("клавіатура", "keyboard", "keys", "klaviatura", "computer board"),
@@ -63,8 +72,21 @@ def switch_screen():
         answer_btn.setText('Відповісти')
 
 
+def show_stat():
+    stat_win = QMessageBox()
+    stat_win.setIcon(QMessageBox.Information)
+    stat_win.setWindowTitle("Статистика")
+    try:
+        accuracy = Question.correct_counter / Question.total_counter * 100 
+        stat_win.setText(f"Кількість відповідей: {Question.total_counter} \nКількість правильних відповідей: {Question.correct_counter}\nТочність: {accuracy}")
+    except:
+        stat_win.setText("Дайте хоча б одну відповідь для підрахунку статистики")
+    
+    stat_win.exec_()
+
 next_question()
 answer_btn.clicked.connect(switch_screen)
+menu_btn.clicked.connect(show_stat)
 
 window.show()
 app.exec_()

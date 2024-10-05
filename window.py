@@ -2,13 +2,31 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QApplication, QWidget, QGroupBox, QButtonGroup, QRadioButton, QPushButton, QSpinBox, QLabel, QVBoxLayout, QLineEdit, QHBoxLayout
 
 
-window = QWidget() # створення вікна
-window.setWindowTitle("Memory Card") #назва вікна
-window.resize(500, 500) # змінити розмір вікна
-window.move(200,200) #положення вікна 
+window = QWidget()  # створення вікна
+window.setWindowTitle("Memory Card")  # назва вікна
+window.resize(500, 500)  # змінити розмір вікна
+window.move(200, 200)  # положення вікна
+
+window.setStyleSheet('''
+background: #260e2e;
+font-size: 25px;
+color: white;    
+''')
 
 # Перший ряд кнопок
-menu_btn = QPushButton("Меню")
+menu_btn = QPushButton("Статистика")
+
+btn_style = '''
+background: #ffbe0a;
+font-size: 20px;
+color: #260e2e;    
+border: 2px solid #D52A73;
+padding: 10px;
+border-radius: 20px;
+font-family: sans-serif;
+'''
+
+menu_btn.setStyleSheet(btn_style)
 rest_btn = QPushButton("Відпочити")
 time_box = QSpinBox()
 time_label = QLabel("хвилин")
@@ -28,7 +46,6 @@ btn1 = QRadioButton("миша")
 btn2 = QRadioButton("щур")
 btn3 = QRadioButton("мішок")
 btn4 = QRadioButton("мус")
-
 
 
 radio_group = QButtonGroup()
@@ -54,18 +71,19 @@ row2.addLayout(col2)
 
 group_box.setLayout(row2)
 
-result_box = QGroupBox("Результат") 
-result_text = QLabel("Правильно") # Результат: Правильно/Неправильно
-answer_text = QLabel("миша") # Правильна відповідь
+result_box = QGroupBox("Результат")
+result_text = QLabel("Правильно")  # Результат: Правильно/Неправильно
+answer_text = QLabel("миша")  # Правильна відповідь
 
 result_col = QVBoxLayout()
 result_col.addWidget(result_text)
 result_col.addWidget(answer_text,  alignment=Qt.AlignCenter, stretch=2)
 
 result_box.setLayout(result_col)
-result_box.hide() # приховує панель з результатом
+result_box.hide()  # приховує панель з результатом
 
 answer_btn = QPushButton("Відповісти")
+answer_btn.setStyleSheet(btn_style)
 
 # Додаємо всі віджети на головну напрямну лінію
 main_line = QVBoxLayout()
