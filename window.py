@@ -7,10 +7,11 @@ window.setWindowTitle("Memory Card")  # назва вікна
 window.resize(500, 500)  # змінити розмір вікна
 window.move(200, 200)  # положення вікна
 
+
 window.setStyleSheet('''
 background: #260e2e;
 font-size: 25px;
-color: white;    
+color: white; 
 ''')
 
 # Перший ряд кнопок
@@ -25,6 +26,7 @@ padding: 10px;
 border-radius: 20px;
 font-family: sans-serif;
 '''
+
 
 menu_btn.setStyleSheet(btn_style)
 rest_btn = QPushButton("Відпочити")
